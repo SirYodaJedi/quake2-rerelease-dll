@@ -1,10 +1,11 @@
 //
-// Quake 2 game definition file (.fgd)
+// Quake 2 Enhanced game definition file (.fgd)
 //
 // Originally written by by autolycus
+// Updated by Paril for re-release
+// Cleaned up by SirYodaJedi
 // Special thanks to: Disruptor, Zoid, Zaphod, Imaginos, EutecTic, xaGe.
 //
-// Last updated by Paril for re-release
 
 // Includes stuff from the tools for lighting etc
 @include "ericw_tools.fgd" 
@@ -16,27 +17,27 @@
 // 0302 - added "nextmap" key
 @SolidClass base(EWT_base_Worldspawn) = worldspawn : "World entity"
 [
-    sky(string) : "Environment map name"
-    skyaxis(vector) : "Vector axis for rotating sky"
-    skyrotate(string) : "Speed of rotation (degrees/second)"
+    sky(string) : "Skybox"
+    skyaxis(vector) : "Skybox rotation axis" : : "Vector axis for rotating sky"
+    skyrotate(string) : "Skybox rotation speed" : : "Speed of rotation (degrees/second)"
     skyautorotate(integer) : "Disable to set sky rotation manually" : 1
     sounds(integer) : "CD Track Number" : 1
     gravity(integer) : "Gravity" : 800
     instantitems(integer) : "Instant Item Use" : 0
     message(string) : "Level name"
     nextmap(string) : "Next map (DM only)"
-    start_items(string) : "Starting items: a semi-colon delimited list of items and amounts to be given to player if they have a clear inventory."
-	achievement(string) : "If an EOU is triggered from this map, this is the achievement to give out."
+    start_items(string) : "Starting items" : :  "A semi-colon delimited list of items and amounts to be given to player if they have a clear inventory."
+	achievement(string) : "Unit complete achievement" : : "If an EOU is triggered from this map, this is the achievement to give out."
 
-    fog_density(float) : "density value of fog, 0-1"
-    fog_color(color) : "color value of fog, 3d vector with values between 0-1 (r g b)"
-    fog_sky_factor(float) : "sky factor value of fog, 0-1"
-    heightfog_falloff(float) : "falloff value of heightfog, 0-1"
-    heightfog_density(float) : "density value of heightfog, 0-1"
-    heightfog_start_color(color) : "start color of heightfog, 3d vector with values between 0-1 (r g b)"
-    heightfog_end_color(color) : "end color of heightfog, 3d vector with values between 0-1 (r g b)"
-    heightfog_start_dist(float) : "start distance value of heightfog, in world units"
-    heightfog_end_dist(float) : "start distance value of heightfog, in world units"
+    fog_density(float) : "Fog density" : : "Density value of fog, 0-1"
+    fog_color(color1) : "Fog color" : : "Color value of fog, 3d vector with values between 0-1 (r g b)"
+    fog_sky_factor(float) : "Fog sky factor" : : "Sky factor value of fog, 0-1"
+    heightfog_falloff(float) : "Height fog falloff" : : "Falloff value of heightfog, 0-1"
+    heightfog_density(float) : "Height fog density" : : "Density value of heightfog, 0-1"
+    heightfog_start_color(color1) : "Height fog start color" : : "start color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_end_color(color1) : "Height fog end color" : : "End color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_start_dist(float) : "Height fog start distance" : : "Start distance value of heightfog, in world units"
+    heightfog_end_dist(float) :"Height fog end disatance" : : "End distance value of heightfog, in world units"
 ]
 
 //
@@ -937,8 +938,8 @@ monster_gekk : "Gekk"
 
 @PointClass base(Monsters) size(-56 -56 -44, 56 56 44) model({ "path": ":models/monsters/carrier/tris.md2" }) = monster_carrier : "Carrier"
 [
-    reinforcements(string): "Semicolon separated list of entity classes and cost of monster to spawn" : "monster_flyer 1;monster_flyer 1;monster_flyer 1;monster_kamikaze 1"
-    monster_slots(integer) : "How many points to spend on monster spawns. Increases by up to 2x for Hard skill" : 3
+    reinforcements(string) : "Reinforcements" : "monster_flyer 1;monster_flyer 1;monster_flyer 1;monster_kamikaze 1" : "Semicolon separated list of entity classes and cost of monster to spawn"
+    monster_slots(integer) : "Monster slots" : 3 : "How many points to spend on monster spawns. Increases by up to 2x for Hard skill"
 ]
 
 @PointClass base(Monsters) size(-40 -40 0, 40 40 144) model({ "path": ":models/monsters/blackwidow/tris.md2" }) = monster_widow : "Black Widow (on foot)" []
@@ -947,8 +948,8 @@ monster_gekk : "Gekk"
 
 @PointClass base(Monsters) model({ "path": ":models/monsters/medic/tris.md2", "skin": 2 }) = monster_medic_commander : "Medic Commander"
 [
-    reinforcements(string): "Semicolon separated list of entity classes and cost of monster to spawn" : "monster_soldier_light 1;monster_soldier 2;monster_soldier_ss 2;monster_infantry 3;monster_gunner 4;monster_medic 5;monster_gladiator 6"
-    monster_slots(integer) : "How many points to spend on monster spawns. Increases by up to 2x for Hard skill" : 3
+    reinforcements(string) : "reinforcements" : "monster_soldier_light 1;monster_soldier 2;monster_soldier_ss 2;monster_infantry 3;monster_gunner 4;monster_medic 5;monster_gladiator 6" : "Semicolon separated list of entity classes and cost of monster to spawn"
+    monster_slots(integer) : "Monster slots" : 3 : "How many points to spend on monster spawns. Increases by up to 2x for Hard skill"
 ]
 @PointClass base(Monsters) model({ "path": ":models/monsters/flyer/tris.md2" }) = monster_kamikaze : "Flyer (kamikaze)" []
 
@@ -1029,8 +1030,8 @@ monster_gekk : "Gekk"
 		32 : "Fade out" : 0
 		64 : "Immediate Leave" : 0
     ]
-    map(string) : "Next map; append $targetname to spawn at matched targetname"
-    target(target_destination) : "Name of info_landmark in the next map to link this exit to"
+    map(string) : "Map" : "" : "Destination map; append $targetname to spawn at matched targetname"
+    target(target_destination) : "Landmark" : "" : "Name of info_landmark in the next map to link this exit to"
 ]
 
 @PointClass base(EditorFlags, Targetable) color(128 128 128) size(-8 -8 -8, 8 8 8) = target_crosslevel_trigger : "Cross-level trigger"
@@ -1491,7 +1492,7 @@ monster_gekk : "Gekk"
     dmg(float) : "Damage" : "2"
 ]
 
-@PointClass base(EditorFlags) = misc_flare : "(N64) Light Flare"
+@PointClass base(EditorFlags) model({{ "path": ":misc/flare.tga" }) = misc_flare : "(N64) Light Flare"
 [
     spawnflags(Flags) =
     [
@@ -1558,23 +1559,23 @@ monster_gekk : "Gekk"
     delay(float) : "Delay": "0.5" : "Time in seconds after transition starts to fully end"
 	wait(float) : "Wait" : "0.0" : "Time in seconds before a re-trigger will occur; mainly for Blend"
     fog_density(float) : "density value of fog, 0-1"
-    fog_color(color) : "color value of fog, 3d vector with values between 0-1 (r g b)"
+    fog_color(color1) : "color value of fog, 3d vector with values between 0-1 (r g b)"
     fog_sky_factor(float) : "sky_factor value of fog, 0-1"
     fog_density_off(float) : "transition density value of fog, 0-1"
-    fog_color_off(color) : "transition color value of fog, 3d vector with values between 0-1 (r g b)"
+    fog_color_off(color1) : "transition color value of fog, 3d vector with values between 0-1 (r g b)"
     fog_sky_factor_off(float) : "transition sky_factor value of fog, 0-1"
 
     heightfog_falloff(float) : "falloff value of heightfog, 0-1"
     heightfog_density(float) : "density value of heightfog, 0-1"
-    heightfog_start_color(color) : "start color of heightfog, 3d vector with values between 0-1 (r g b)"
-    heightfog_end_color(color) : "end color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_start_color(color1) : "start color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_end_color(color1) : "end color of heightfog, 3d vector with values between 0-1 (r g b)"
     heightfog_start_dist(float) : "start distance value of heightfog, in world units"
     heightfog_end_dist(float) : "start distance value of heightfog, in world units"
 
     heightfog_falloff_off(float) : "transition falloff value of heightfog, 0-1"
     heightfog_density_off(float) : "transition density value of heightfog, 0-1"
-    heightfog_start_color_off(color) : "transition start color of heightfog, 3d vector with values between 0-1 (r g b)"
-    heightfog_end_color_off(color) : "transition end color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_start_color_off(color1) : "transition start color of heightfog, 3d vector with values between 0-1 (r g b)"
+    heightfog_end_color_off(color1) : "transition end color of heightfog, 3d vector with values between 0-1 (r g b)"
     heightfog_start_dist_off(float) : "transition start distance value of heightfog, in world units"
     heightfog_end_dist_off(float) : "transition start distance value of heightfog, in world units"
 ]
@@ -1665,9 +1666,21 @@ monster_gekk : "Gekk"
 
 @PointClass base(EditorFlags, Targetable) color(255 128 255) size(-16 -16 -24, 16 16 32) model({ "path": ":models/monsters/insane/tris.md2", "frame":209, "skin":1}) = misc_player_mannequin : "Player Mannequin"
 [
-  distance(integer) : "Gesture To Use When Triggered. 0 = FlipOff, 1 = Salute, 2 = Taunt, 3 = Wave, 4 = Point" : 1 
-  height(integer) : "Type Of Model To Use. 1 = Female, 2 = Male, 3 = Cyborg" : 1
-  radius(float) : "Scale To Use For Model"
-  goals(string) : "Name Of MD2 Player Weapon Model To Hold. EX: 'w_hyperblaster'"
-  image(string) : "Name Of PCX Player Skin To Use. EX: 'venus'"
+	distance(choices) : "Trigger action" : 1 : "Gesture to use when triggered" = 
+	[
+		1 : "Flip Off"
+		2 : "Salute"
+		3 : "Taunt"
+		4 : "Wave"
+		5 : "Point"
+	]
+	height(choices) : "Sex" : 1 : "Type of model to use" = 
+	[
+		1 : "Female"
+		2 : "Male"
+		3 : "Cyborg"
+	]
+	radius(float) : "Scale" : "1.0" : "Scale to use for model"
+	goals(string) : "Weapon" : "w_hyperblaster" : "Name of MD2 player weapon model to hold. EX: 'w_hyperblaster'"
+	image(string) : "Skin" : "venus" : "Name of PCX player skin to use. EX: 'venus'"
 ]
